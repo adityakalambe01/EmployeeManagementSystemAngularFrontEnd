@@ -1,0 +1,121 @@
+<div class="row">
+  <div class="col-8">
+    <div class="card">
+      <div class="card-header bg-warning">
+        <h5>Project Employee List</h5>
+      </div>
+      <div class="card-body">
+        <!-- Project Employees Table -->
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Emp Project ID</th>
+              <th>Project ID</th>
+              <th>Employee ID</th>
+              <th>Assigned Date</th>
+              <th>Role</th>
+              <th>Is Active</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Data rows go here -->
+            @for(projectEmployee of projectEmployeesList(); track $index){
+            <tr>
+              <td>{{ $index + 1 }}</td>
+              <td>{{ projectEmployee.projectId }}</td>
+              <td>{{ projectEmployee.empId }}</td>
+              <td>
+                {{ projectEmployee.assignedDate | date : "dd - MMM - yyyy" }}
+              </td>
+              <td>{{ projectEmployee.role }}</td>
+              <td>
+                {{ projectEmployee.isActive ? "In Progress" : "Pending" }}
+              </td>
+              <td>
+                <button class="btn btn-primary">Edit</button>
+                <button class="btn btn-danger" style="margin-left: 5px">
+                  Delete
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header bg-warning">
+        <h5>Add New Project Employee</h5>
+      </div>
+      <div class="card-body">
+        <form class="mb-4" [formGroup]="form">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="projectId" class="form-label">Project ID</label>
+              <select id="projectId" class="form-select">
+                <option value="">Select</option>
+                @for(item of projectList$ | async; track $index){
+
+                }
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="empId" class="form-label">Employee ID</label>
+              <select id="empId" class="form-select">
+                <option value="">Select</option>
+                @for(item of employeeList$ | async; track $index){
+
+                }
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="assignedDate" class="form-label">Assigned Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="assignedDate"
+                formControlName="assignedDate"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="roleProjectEmployee" class="form-label">Role</label>
+              <input
+                type="text"
+                class="form-control"
+                id="roleProjectEmployee"
+                placeholder="Enter role"
+                formControlName="role"
+              />
+            </div>
+            <div class="col-md-6 d-flex">
+              <label for="activeProjectEmployee">Active</label>
+              <input type="checkbox" class="form-check" id="activeProjectEmployee" formControlName="isActive" style="margin-left: 5px;"/>
+            </div>
+          </div>
+          @if(true){
+          <button
+            type="submit"
+            class="btn btn-primary mt-3"
+            (click)="onSaveProjectEmployee()"
+          >
+            Submit
+          </button>
+          }@else {
+          <button
+            type="submit"
+            class="btn btn-secondary mt-3"
+            (click)="onUpdateProjectEmployee()"
+          >
+            Update
+          </button>
+          }
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

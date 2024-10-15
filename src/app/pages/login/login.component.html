@@ -1,0 +1,19 @@
+<section>
+  <div class="container">
+    <div class="login">
+      <h2>Login</h2>
+      <form action="#">
+        <input type="email" [(ngModel)]="userObject.username" name="username" placeholder="Email" />
+        
+        <input type="password" [(ngModel)]="userObject.password" name="password" placeholder="Password" />
+        <div class="options">
+          <input type="checkbox" />
+          <label for="remember">Remember me!</label>
+          <a href="#">Forgot password?</a>
+        </div>
+        <button (click)="login()">Login</button>
+        <p>Don't have an account?<br /><a href="#">Register</a></p>
+      </form>
+    </div>
+  </div>
+</section>

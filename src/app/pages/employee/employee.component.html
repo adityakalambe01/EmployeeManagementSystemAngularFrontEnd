@@ -1,0 +1,189 @@
+<!-- Employees Tab -->
+<div class="tab-pane fade show active" id="employees" role="tabpanel">
+  <div class="row">
+    <div class="col-6">
+      <h2>Employees</h2>
+    </div>
+    <div class="col-6 text-end">
+      <button class="btn btn-success" (click)="isFormVisible.set(true)">
+        Add New
+      </button>
+    </div>
+  </div>
+
+  @if(isFormVisible()){
+
+  <!-- Employee Form -->
+  <form class="mb-4">
+    <div class="row">
+      <div class="col-md-6">
+        <label for="employeeName" class="form-label">Employee Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="employeeName"
+          placeholder="Enter employee name"
+          [(ngModel)]="employeeObject.employeeName"
+          name="employeeName"
+        />
+      </div>
+      <div class="col-md-6">
+        <label for="contactNo" class="form-label">Contact No</label>
+        <input
+          type="text"
+          class="form-control"
+          id="contactNo"
+          placeholder="Enter contact number"
+          [(ngModel)]="employeeObject.contactNo"
+          name="contactNo"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="emailId" class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="emailId"
+          placeholder="Enter email"
+          [(ngModel)]="employeeObject.emailId"
+          name="emailId"
+        />
+      </div>
+      <div class="col-md-3">
+        <label for="deptId" class="form-label">Department</label>
+        <select
+          id="deptId"
+          class="form-select"
+          name="parentDepartmentId"
+          [(ngModel)]="parentDepartmentId"
+          (change)="onParentDepartmentChange()"
+        >
+          <option selected disabled>Select department</option>
+          <!-- Department options -->
+          @for(parentDepartment of parentDepartmentList(); track $index){
+          <option [value]="parentDepartment.departmentId">
+            {{ parentDepartment.departmentName }}
+          </option>
+          }
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="deptId" class="form-label">Child Department</label>
+        <select
+          id="deptId"
+          class="form-select"
+          name="deptId"
+          [(ngModel)]="employeeObject.deptId"
+        >
+          <option selected disabled>Select Child department</option>
+          <!-- Department options -->
+          @for(chlidDepartment of childDepartmentList(); track $index){
+          <option [value]="chlidDepartment.childDeptId">
+            {{ chlidDepartment.departmentName }}
+          </option>
+          }
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Enter password"
+          [(ngModel)]="employeeObject.password"
+          name="password"
+        />
+      </div>
+      <div class="col-md-6">
+        <label for="role" class="form-label">Role</label>
+        <input
+          type="text"
+          class="form-control"
+          id="role"
+          placeholder="Enter role"
+          [(ngModel)]="employeeObject.role"
+          name="role"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="gender" class="form-label">Gender</label>
+        <select
+          id="gender"
+          class="form-select"
+          name="gender"
+          [(ngModel)]="employeeObject.gender"
+        >
+          <option selected>Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+    <div>
+      @if(employeeObject.employeeId===0){
+      <button class="btn btn-primary mt-3" (click)="onSave()">Submit</button>
+      }@else{
+      <button class="btn btn-primary mt-3" (click)="onUpdate()">Update</button>
+      }
+      <button
+        class="btn btn-success mt-3"
+        style="margin-left: 5px"
+        (click)="isFormVisible.set(false)"
+      >
+        Close
+      </button>
+    </div>
+  </form>
+  }
+
+  <!-- Employee Table -->
+  <!-- <h3>Employee List</h3> -->
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>Name</th>
+        <th>Contact No</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Role</th>
+        <th>Gender</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data rows go here -->
+      @for(employee of employeeList(); track $index){
+      <tr>
+        <td>{{ employee.employeeId }}</td>
+        <td>{{ employee.employeeName }}</td>
+        <td>{{ employee.contactNo }}</td>
+        <td>{{ employee.emailId }}</td>
+        <td>{{ employee.deptId }}</td>
+        <td>{{ employee.role }}</td>
+        <td>{{ employee.gender }}</td>
+        <td>
+          <button class="btn btn-secondary" (click)="onEdit(employee)">
+            Edit
+          </button>
+          <button
+            class="btn btn-danger"
+            style="margin-left: 5px"
+            (click)="onDelete(employee.employeeId)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
