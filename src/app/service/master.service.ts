@@ -83,8 +83,8 @@ export class MasterService {
 
   saveProjectEmployee(
     projectEmployee: IProjectEmployee
-  ): Observable<IProjectEmployee> {
-    return this.http.post<IProjectEmployee>(
+  ): Observable<IApiResponse> {
+    return this.http.post<IApiResponse>(
       `${this.API_URL}CreateProjectEmployee`,
       projectEmployee
     );

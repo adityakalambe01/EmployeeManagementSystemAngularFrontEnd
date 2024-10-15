@@ -53,7 +53,7 @@ export class ProjectEmployeeComponent implements OnInit {
 
   onSaveProjectEmployee() {
     this.masterService.saveProjectEmployee(this.form.value).subscribe(
-      (data: IProjectEmployee) => {
+      (data: IApiResponse) => {
         alert("Project assigned successfully!");
         this.getAllProjectEmployees();
         this.initilizeForm();
