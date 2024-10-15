@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { IProject, IProjectEmployee } from '../../model/interface/master';
+import { IApiResponse, IProject, IProjectEmployee } from '../../model/interface/master';
 import { MasterService } from '../../service/master.service';
 import { AsyncPipe, DatePipe, JsonPipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -51,7 +51,17 @@ export class ProjectEmployeeComponent implements OnInit {
       });
   }
 
-  onSaveProjectEmployee() {}
+  onSaveProjectEmployee() {
+    this.masterService.saveProjectEmployee(this.form.value).subscribe(
+      (data: IProjectEmployee) => {
+        alert("Project assigned successfully!");
+        this.getAllProjectEmployees();
+        this.initilizeForm();
+      }, error =>{
+        alert("Failed to assign project!");
+      }
+    );
+  }
 
   onDeleteProjectEmployee(empProjectId: number) {}
 

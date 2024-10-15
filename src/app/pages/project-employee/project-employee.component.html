@@ -54,20 +54,20 @@
         <form class="mb-4" [formGroup]="form">
           <div class="row">
             <div class="col-md-6">
-              <label for="projectId" class="form-label">Project ID</label>
+              <label for="projectId" class="form-label">Project</label>
               <select id="projectId" class="form-select">
                 <option value="">Select</option>
-                @for(item of projectList$ | async; track $index){
-
+                @for(project of projectList$ | async; track $index){
+                  <option [value]="project.projectId">{{project.projectName}}</option>
                 }
               </select>
             </div>
             <div class="col-md-6">
-              <label for="empId" class="form-label">Employee ID</label>
+              <label for="empId" class="form-label">Employee</label>
               <select id="empId" class="form-select">
                 <option value="">Select</option>
-                @for(item of employeeList$ | async; track $index){
-
+                @for(employee of employeeList$ | async; track $index){
+                  <option [value]="employee.employeeId">{{employee.employeeName}}</option>
                 }
               </select>
             </div>
@@ -97,7 +97,7 @@
               <input type="checkbox" class="form-check" id="activeProjectEmployee" formControlName="isActive" style="margin-left: 5px;"/>
             </div>
           </div>
-          @if(true){
+          @if(form.controls['empProjectId'].value===0){
           <button
             type="submit"
             class="btn btn-primary mt-3"
